@@ -1,6 +1,7 @@
 package main
 
 import (
+	solutions2024 "advent-of-code/2024"
 	"fmt"
 	"log"
 	"os"
@@ -18,7 +19,12 @@ func main() {
 	part, _ := strconv.Atoi(os.Args[3])
 
 	functions := map[int]map[int]map[int]func(){
-		2024: {},
+		2024: {
+			1: {
+				1: solutions2024.Day01Part1,
+				2: solutions2024.Day01Part2,
+			},
+		},
 	}
 
 	fmt.Printf("Running script for AOC %v Day %v Part %v\n", year, day, part)
