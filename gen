@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -a
+source .env
+set +a
+
+usage="Usage: $0 [options] year day
+  Options:
+    --help or -h: Shows help and exits
+"
+year=${@: -2:1}
+day=${@: -1}
+
+# year and day are required arguments
+if [[ -z $year ]] || [[ -z $day ]] || [[ $# < 2 ]]; then
+  echo "$usage"
+  exit 1
+fi
+
+if [[ "$@" == "-h" || "$@" == "--help" ]]; then
+  echo "$usage"
+  exit 0
+fi
+
+day_padded=$(seq -f "%02g" $day $day)
+path="$year"/day-"$day_padded"
+
+# create solution.go file from template
+mkdir -p "$path"
+
+if [[ ! -d "$path" ]]; then
+  echo "Couldn't create directory $path"
+  exit 0
+fi
+
+if [[ ! -f "$path.go" ]]; then
+  sed -e "s/@/$year/g" -e "s/#/$day_padded/g" < ./solution.template > "tmp.txt"
+  cp ./tmp.txt "$path.go"
+  rm -f ./tmp.txt
+fi
+
+if [[ ! -e "$path/sample" ]]; then
+  touch "$path/sample"
+fi
+
+# fetch problem input
+if ! command -v curl > /dev/null 2>&1; then
+  echo "Curl not found. Install curl and try running this script again"
+  exit 1
+fi
+
+curl --silent --cookie session=$AOC_SESSION  https://adventofcode.com/$year/day/$day/input > "$path/input"
+
+# fetch problem text - TBA
+
+exit 0

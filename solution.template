@@ -1,0 +1,18 @@
+package solutions@
+
+import (
+	"advent-of-code/utils"
+	"fmt"
+)
+
+func Day#Part1() {
+	input := utils.ReadInputLines()
+
+	fmt.Println(input)
+}
+
+func Day#Part2() {
+	input := utils.ReadInputLines()
+
+	fmt.Println(input)
+}
