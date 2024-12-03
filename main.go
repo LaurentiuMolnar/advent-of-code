@@ -24,6 +24,10 @@ func main() {
 				1: solutions2024.Day01Part1,
 				2: solutions2024.Day01Part2,
 			},
+			2: {
+				1: solutions2024.Day02Part1,
+				2: solutions2024.Day02Part2,
+			},
 		},
 	}
 
